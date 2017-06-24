@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <h3>Questions</h3>
+    <div>
+        <h:panelGroup id="showQuestionPanel">
+            <p:dataTable var="question" value="#{teacher.allQuestion}" rowIndexVar="index">
+                <p:column headerText="No">
+                    <h:outputText value="#{index +1}"/>
+                </p:column>
+
+                <p:column headerText="Content">
+                    <h:outputText value="#{question.content}"/>
+                </p:column>
+
+                <p:column headerText="Level">
+                    <h:outputText value="#{question.level}"/>
+                </p:column>
+
+                <p:column headerText="Type">
+                    <h:outputText value="#{question.getType()}"/>
+                </p:column>
+            </p:dataTable>
+        </h:panelGroup>
+        <p:commandButton action="#{teacher.showAllQuestion}" update="showQuestionPanel"
+                         value="Load all questions"></p:commandButton>
+    </div>
+    <div>
+        <h:panelGroup id="addQuestionPanel">
+            <h:panelGrid rendered="#{teacher.shouldShowAddQuestionView}">
+                <h:outputText value="Type"></h:outputText>
+                <p:selectOneMenu  value="#{teacher.questionCreator.type}">
+                    <f:selectItems value="#{metaData.questionTypes}" itemLabel="#{questionType.render}" itemValue="#{questionType}"></f:selectItems>
+                    <p:ajax event="change" process="@this" update="addQuestionPanel"></p:ajax>
+                </p:selectOneMenu>
+
+                <h:panelGroup id="addYesNo" rendered="#{teacher.questionCreator.yesNo}">
+                   Is true: <p:selectBooleanCheckbox  value="#{teacher.questionCreator.question.answer}"></p:selectBooleanCheckbox>
+                </h:panelGroup>
+                <h:panelGroup id="addOne" rendered="#{teacher.questionCreator.oneChoice}">
+
+                </h:panelGroup>
+                <h:panelGroup id="addMultiple" rendered="#{teacher.questionCreator.multipleChoices}">
+
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:panelGroup>
+        <p:commandButton action="#{teacher.showAddQuestionView}" update="addQuestionPanel"
+                         value="Show question creator"></p:commandButton>
+
+    </div>
+</ui:composition>

@@ -1,7 +1,6 @@
 package model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,9 +10,20 @@ import java.util.List;
  */
 @Entity
 @Table(name = "chu_de")
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@NamedQueries(
+        value = {
+                @NamedQuery(name = "Subject.getAll", query = "from Subject"),
+                @NamedQuery(name = "Subject.findOne", query = "from Subject s where s.name= :name")
+        }
+)
 public class Subject {
+
+    public static final String GET_ALL_QUERY = "Subject.getAll";
+    public static final String FIND_ONE_QUERY = "Subject.findOne";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
