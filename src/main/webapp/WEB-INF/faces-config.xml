@@ -12,4 +12,17 @@
             <to-view-id>/pages/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/pages/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{login.validateUsernamePassword}</from-action>
+            <from-outcome>studentPage</from-outcome>
+            <to-view-id>/pages/student/student.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{login.validateUsernamePassword}</from-action>
+            <from-outcome>teacherPage</from-outcome>
+            <to-view-id>/pages/teacher/teacher.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
